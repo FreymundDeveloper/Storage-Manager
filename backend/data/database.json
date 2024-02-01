@@ -1,0 +1,19 @@
+{
+    "products": [
+        {
+            "id": 1,
+            "name": "Black Pen",
+            "price": 4.59
+        },
+        {
+            "id": 2,
+            "name": "Notebook Mac Pro",
+            "price": 18000.00
+        },
+        {
+            "id": 3,
+            "name": "Smartphone Sansung",
+            "price": 3592.23
+        }
+    ]
+}
