@@ -1,45 +1,13 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import mysql from 'mysql';
+import connection from '../model/database';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
 app.use(cors());
 app.use(bodyParser.json());
-
-const dbConfig = {
-  host: 'localhost',
-  user: 'root',
-  password: 'MySqlPass1',
-  database: 'mysql'
-};
-
-const connection = mysql.createConnection(dbConfig);
-
-connection.connect(error => {
-  if (error) {
-    console.error('Error to connect to database:', error);
-    return;
-  }
-  console.log('Connection successfully with database MySQL');
-  
-  const createTableQuery = `
-    CREATE TABLE IF NOT EXISTS Products (
-      id INT AUTO_INCREMENT PRIMARY KEY,
-      name VARCHAR(255) NOT NULL,
-      price DECIMAL(10, 2) NOT NULL
-    )
-  `;
-  connection.query(createTableQuery, (err) => {
-    if (err) {
-      console.error('Error to create table Products:', err);
-    } else {
-      console.log('Table Products created or existent.');
-    }
-  });
-});
 
 app.get('/products', (req: Request, res: Response) => {
   connection.query('SELECT * FROM Products', (error, results) => {
