@@ -5,9 +5,9 @@ import connection from '../model/database';
 const validateProductData = (req: Request, res: Response) => {
   const { name, price } = req.body;
 
-  if (!(!name || !price)) return true;
+  if (!(!name || !price || !/^\d+(\.\d+)?$/.test(price))) return true;
 
-  res.status(400).json({ message: 'Name and price are required.' });
+  res.status(400).json({ message: 'Formatting error, check your name and price.' });
   return false;
 };
 
@@ -59,7 +59,7 @@ export const updateProduct = (req: Request, res: Response) => {
 
   const productId = req.params.id;
   const { name, price } = req.body;
-  
+
   connection.query('UPDATE Products SET name = ?, price = ? WHERE id = ?', [name, price, productId], (error, result) => {
     if (error) {
       console.error('Error to update product:', error);
