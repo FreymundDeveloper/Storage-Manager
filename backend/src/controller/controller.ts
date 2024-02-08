@@ -1,6 +1,17 @@
 import { Request, Response } from 'express';
 import connection from '../model/database';
 
+//Utils
+const validateProductData = (req: Request, res: Response) => {
+  const { name, price } = req.body;
+
+  if (!(!name || !price)) return true;
+
+  res.status(400).json({ message: 'Name and price are required.' });
+  return false;
+};
+
+// Api
 export const getAllProducts = (req: Request, res: Response) => {
   connection.query('SELECT * FROM Products', (error, results) => {
     if (error) {
@@ -29,7 +40,10 @@ export const getProductById = (req: Request, res: Response) => {
 };
 
 export const createProduct = (req: Request, res: Response) => {
+  if (!validateProductData(req, res)) return;
+
   const { name, price } = req.body;
+
   connection.query('INSERT INTO Products (name, price) VALUES (?, ?)', [name, price], (error, result) => {
     if (error) {
       console.error('Error to create product:', error);
@@ -41,8 +55,11 @@ export const createProduct = (req: Request, res: Response) => {
 };
 
 export const updateProduct = (req: Request, res: Response) => {
+  if (!validateProductData(req, res)) return;
+
   const productId = req.params.id;
   const { name, price } = req.body;
+  
   connection.query('UPDATE Products SET name = ?, price = ? WHERE id = ?', [name, price, productId], (error, result) => {
     if (error) {
       console.error('Error to update product:', error);
