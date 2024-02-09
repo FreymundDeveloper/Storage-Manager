@@ -1,6 +1,6 @@
 # Storage-Manager
 
-An inventory management system with basic CRUD functionality..
+An inventory management system with basic CRUD functionality.
 
 Some technologies used:
 
@@ -8,6 +8,7 @@ Some technologies used:
 * Angular Material;
 * Html;
 * CSS;
+* RxJS;
 * TypeScript;
 * MySQL;
 * Node;
@@ -15,7 +16,7 @@ Some technologies used:
 
 ## Routes
 
-The route is linked to the address "localhost:3001/products ...". The backend runs on port 3001 and the frontend on port 4200. Below is a specification of the routes.
+The route is linked to the address "localhost:3001/products ...". The backend runs on port 3001 and the frontend on port 4200. Below is a specification of the end-points and route items.
 
 * Get: /products;
 
